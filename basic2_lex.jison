@@ -4,23 +4,29 @@
 %%
 
 \s+               {/* skip whitespace */}
-[a-zA-Z_]\w*      {return 'x';}
+[;]               { return 'sep'; }
+[=]               { return 'equal'; }
+\d+               { return 'num'; }
+[a-zA-Z_]\w*      { return 'id'; }
 
 /lex
 
 %%
 
 S   : A
-           { return $1+" identifiers"; }
+           { 
+           console.log(result);
+           return result;
+           }
     ;
 A   : /* empty */  
-           { 
-              console.log("starting"); 
-              $$ = 0; 
-           }
-    | A x  { 
-              $$ = $1 + 1;  
-              console.log($$)
-           }
+           
+    | id equal num sep A
+            {  
+              result[$1] = $3;
+            }
     ;
 
+%%
+
+var result = {};
