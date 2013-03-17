@@ -15,15 +15,14 @@
 
 S   : A
            { 
-           console.log(result);
-           return result;
+                return JSON.stringify(result);
            }
     ;
 A   : /* empty */  
            
     | id equal num sep A
             {  
-              result[$1] = $3;
+                result[$1] = $3;
             }
     ;
 
